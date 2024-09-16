@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 
 class WatchlistModel extends Equatable {
@@ -19,15 +18,22 @@ class WatchlistModel extends Equatable {
   // TODO: implement props
   List<Object?> get props => [id];
 
-// factory
-  static WatchlistModel fromJson(Map<String , dynamic> json) {
-    return WatchlistModel(
-        id: json['id'],
-        backdropPath: json['backdropPath'],
-        originalTitle: json['originalTitle'],
-        releaseDate: json['releaseDate'],
-        overview: json['overview']);
-  }
+  WatchlistModel.fromJson(Map<String, dynamic> json)
+      : this(
+            id: json['id'],
+            backdropPath: json['backdropPath'],
+            originalTitle: json['originalTitle'],
+            releaseDate: json['releaseDate'],
+            overview: json['overview']);
+
+  // WatchlistModel fromJson(Map<String, dynamic> json) {
+  //   return WatchlistModel(
+  //       id: json['id'],
+  //       backdropPath: json['backdropPath'],
+  //       originalTitle: json['originalTitle'],
+  //       releaseDate: json['releaseDate'],
+  //       overview: json['overview']);
+  // }
 
   Map<String, dynamic> toJson() {
     return {

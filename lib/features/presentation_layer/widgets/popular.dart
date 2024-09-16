@@ -11,6 +11,7 @@ import 'package:movies_app/core/utiles/variables.dart';
 import 'package:movies_app/features/data_layer/models/watchlist_model.dart';
 import 'package:movies_app/features/presentation_layer/cubits/home_tab_cubit/home_cubit.dart';
 import 'package:movies_app/features/presentation_layer/cubits/home_tab_cubit/home_state.dart';
+import 'package:movies_app/features/presentation_layer/pages/firebase_functions.dart';
 import 'package:movies_app/features/presentation_layer/pages/movie_details.dart';
 
 class PopularMovies extends StatefulWidget {

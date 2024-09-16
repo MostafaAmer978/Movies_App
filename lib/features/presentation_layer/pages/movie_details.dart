@@ -10,6 +10,7 @@ import 'package:movies_app/core/utiles/variables.dart';
 import 'package:movies_app/features/data_layer/models/watchlist_model.dart';
 import 'package:movies_app/features/presentation_layer/cubits/home_tab_cubit/home_cubit.dart';
 import 'package:movies_app/features/presentation_layer/cubits/home_tab_cubit/home_state.dart';
+import 'package:movies_app/features/presentation_layer/pages/firebase_functions.dart';
 
 class MovieDetails extends StatelessWidget {
   static const String routeName = "MovieDetails";
@@ -176,14 +177,26 @@ class MovieDetails extends StatelessWidget {
                                               WatchlistModel(
                                                 id: movieDetailsModel[0],
                                                 backdropPath:
-                                                    movieDetailsModel[1],
+                                                movieDetailsModel[1],
                                                 originalTitle:
-                                                    movieDetailsModel[2],
+                                                movieDetailsModel[2],
                                                 releaseDate:
-                                                    movieDetailsModel[3],
+                                                movieDetailsModel[3],
                                                 overview: movieDetailsModel[4],
                                               ),
                                             );
+                                            // FirebaseFunctions.addAndDeleteMovie(
+                                            //   WatchlistModel(
+                                            //     id: movieDetailsModel[0],
+                                            //     backdropPath:
+                                            //         movieDetailsModel[1],
+                                            //     originalTitle:
+                                            //         movieDetailsModel[2],
+                                            //     releaseDate:
+                                            //         movieDetailsModel[3],
+                                            //     overview: movieDetailsModel[4],
+                                            //   ),
+                                            // );
                                           },
                                           child: Stack(
                                             alignment: Alignment.center,
@@ -324,7 +337,8 @@ class MovieDetails extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 10.r),
+                      padding:
+                          EdgeInsets.only(left: 10.r, right: 10.r, top: 10.r),
                       width: double.infinity,
                       height: 250.h,
                       color: AppColors.greyColor,
@@ -362,7 +376,9 @@ class MovieDetails extends StatelessWidget {
                                           var scrollMax = scrollNotification
                                               .metrics.maxScrollExtent;
                                           if (scroll == scrollMax) {
-                                            HomeCubit.get(context).getSimilarMovie(movieId, ++Variables.similarPage);
+                                            HomeCubit.get(context)
+                                                .getSimilarMovie(movieId,
+                                                    ++Variables.similarPage);
                                           }
                                         }
                                       }
@@ -407,37 +423,60 @@ class MovieDetails extends StatelessWidget {
                                                         onTap: () {
                                                           Navigator.pushNamed(
                                                               context,
-                                                              MovieDetails.routeName,
-                                                              arguments: Variables.newSimilarPagination[index].id.toString());
+                                                              MovieDetails
+                                                                  .routeName,
+                                                              arguments: Variables
+                                                                  .newSimilarPagination[
+                                                                      index]
+                                                                  .id
+                                                                  .toString());
                                                         },
-                                                        child: Variables.newSimilarPagination[index].posterPath ==
+                                                        child: Variables
+                                                                    .newSimilarPagination[
+                                                                        index]
+                                                                    .posterPath ==
                                                                 null
                                                             ? Container(
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   border: Border.all(
-                                                                      color: AppColors.lightGreyColor,
+                                                                      color: AppColors
+                                                                          .lightGreyColor,
                                                                       width: 2),
-                                                                  borderRadius: BorderRadius.only(
-                                                                    topRight: Radius.circular(5.r),
-                                                                    topLeft: Radius.circular(5.r),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .only(
+                                                                    topRight: Radius
+                                                                        .circular(
+                                                                            5.r),
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            5.r),
                                                                   ),
                                                                 ),
                                                                 child: imageNotFound(
-                                                                    double.infinity, 128),
+                                                                    double
+                                                                        .infinity,
+                                                                    128),
                                                               )
                                                             : CachedNetworkImage(
-                                                                fit: BoxFit.fill,
+                                                                fit:
+                                                                    BoxFit.fill,
                                                                 height: 128.h,
-                                                                width: double.infinity.w,
+                                                                width: double
+                                                                    .infinity.w,
                                                                 imageUrl:
                                                                     '${Constants.baseURLImage}${Variables.newSimilarPagination[index].posterPath}',
                                                                 progressIndicatorBuilder:
-                                                                    (context, url, downloadProgress) =>
+                                                                    (context,
+                                                                            url,
+                                                                            downloadProgress) =>
                                                                         Center(
                                                                   child: CircularProgressIndicator(
-                                                                      color: AppColors.whiteColor,
-                                                                      value: downloadProgress.progress),
+                                                                      color: AppColors
+                                                                          .whiteColor,
+                                                                      value: downloadProgress
+                                                                          .progress),
                                                                 ),
                                                               ),
                                                       ),
@@ -466,30 +505,57 @@ class MovieDetails extends StatelessWidget {
                                                                             context)
                                                                         .isSaved(
                                                                   WatchlistModel(
-                                                                    id: similarModel[0],
-                                                                    backdropPath: similarModel[1],
-                                                                    originalTitle: similarModel[2],
-                                                                    releaseDate: similarModel[3],
-                                                                    overview: similarModel[4],
+                                                                    id: similarModel[
+                                                                        0],
+                                                                    backdropPath:
+                                                                        similarModel[
+                                                                            1],
+                                                                    originalTitle:
+                                                                        similarModel[
+                                                                            2],
+                                                                    releaseDate:
+                                                                        similarModel[
+                                                                            3],
+                                                                    overview:
+                                                                        similarModel[
+                                                                            4],
                                                                   ),
                                                                 )
-                                                                    ? AppColors.yellowColor
-                                                                    : AppColors.lightGreyColor.withOpacity(0.9),
+                                                                    ? AppColors
+                                                                        .yellowColor
+                                                                    : AppColors
+                                                                        .lightGreyColor
+                                                                        .withOpacity(
+                                                                            0.9),
                                                                 size: 40.sp,
                                                               ),
                                                               Icon(
-                                                                HomeCubit.get(context).isSaved(
+                                                                HomeCubit.get(
+                                                                            context)
+                                                                        .isSaved(
                                                                   WatchlistModel(
-                                                                    id: similarModel[0],
-                                                                    backdropPath: similarModel[1],
-                                                                    originalTitle: similarModel[2],
-                                                                    releaseDate: similarModel[3],
-                                                                    overview: similarModel[4],
+                                                                    id: similarModel[
+                                                                        0],
+                                                                    backdropPath:
+                                                                        similarModel[
+                                                                            1],
+                                                                    originalTitle:
+                                                                        similarModel[
+                                                                            2],
+                                                                    releaseDate:
+                                                                        similarModel[
+                                                                            3],
+                                                                    overview:
+                                                                        similarModel[
+                                                                            4],
                                                                   ),
                                                                 )
                                                                     ? Icons.done
                                                                     : Icons.add,
-                                                                color: AppColors.whiteColor.withOpacity(0.9),
+                                                                color: AppColors
+                                                                    .whiteColor
+                                                                    .withOpacity(
+                                                                        0.9),
                                                                 size: 18.sp,
                                                               )
                                                             ],
@@ -507,26 +573,41 @@ class MovieDetails extends StatelessWidget {
                                                     decoration: BoxDecoration(
                                                       color: AppColors
                                                           .lightGreyColor,
-                                                      borderRadius: BorderRadius.only(
-                                                        bottomLeft: Radius.circular(5.r),
-                                                        bottomRight: Radius.circular(5.r),
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                5.r),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                                5.r),
                                                       ),
                                                     ),
                                                     child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
                                                         Row(
                                                           children: [
                                                             const Icon(
                                                               Icons.star,
-                                                              color: AppColors.yellowColor,
+                                                              color: AppColors
+                                                                  .yellowColor,
                                                             ),
                                                             SizedBox(
                                                               width: 5.w,
                                                             ),
                                                             Text(
-                                                              Variables.newSimilarPagination[index].voteAverage.toString().substring(0, 3),
-                                                              style: AppStyles.descriptionPoppins_10,
+                                                              Variables
+                                                                  .newSimilarPagination[
+                                                                      index]
+                                                                  .voteAverage
+                                                                  .toString()
+                                                                  .substring(
+                                                                      0, 3),
+                                                              style: AppStyles
+                                                                  .descriptionPoppins_10,
                                                             ),
                                                           ],
                                                         ),
@@ -541,7 +622,10 @@ class MovieDetails extends StatelessWidget {
                                                           style: AppStyles
                                                               .descriptionPoppins_10,
                                                         ),
-                                                        Variables.newSimilarPagination[index].releaseDate ==
+                                                        Variables
+                                                                    .newSimilarPagination[
+                                                                        index]
+                                                                    .releaseDate ==
                                                                 ""
                                                             ? Text(
                                                                 "No Date",

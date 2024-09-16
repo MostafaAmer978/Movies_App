@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cache/shared_preferences.dart';
 import 'package:movies_app/core/utiles/variables.dart';
 import 'package:movies_app/features/data_layer/models/movie_details_model.dart';
 import 'package:movies_app/features/data_layer/models/new_releases_model.dart';
@@ -9,6 +9,7 @@ import 'package:movies_app/features/data_layer/models/recommended_model.dart';
 import 'package:movies_app/features/data_layer/models/similar_model.dart';
 import 'package:movies_app/features/data_layer/models/watchlist_model.dart';
 import 'package:movies_app/features/domain_layer/usecases/home_usecase.dart';
+import 'package:movies_app/features/presentation_layer/pages/firebase_functions.dart';
 import 'package:movies_app/features/presentation_layer/pages/tabs/browse_tab.dart';
 import 'package:movies_app/features/presentation_layer/pages/tabs/home_tab.dart';
 import 'package:movies_app/features/presentation_layer/pages/tabs/search_tab.dart';
@@ -140,8 +141,8 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  /// Add to Watchlist
-  void addToWatchlist(WatchlistModel watchlistModel) {
+  /// Add to Watchlist - addAndDeleteMovie
+  void addToWatchlist(WatchlistModel watchlistModel){
     if (Variables.watchlistMovies.contains(watchlistModel)) {
       Variables.watchlistMovies.remove(watchlistModel);
     } else {
@@ -151,10 +152,12 @@ class HomeCubit extends Cubit<HomeState> {
     emit(AddToWatchlist(watchlistModel: Variables.watchlistMovies));
   }
 
+
   /// isSaved
   bool isSaved(WatchlistModel watchlistModel) {
     return Variables.watchlistMovies.contains(watchlistModel);
   }
+
 
 
   void selectedIndexTab(int index) {

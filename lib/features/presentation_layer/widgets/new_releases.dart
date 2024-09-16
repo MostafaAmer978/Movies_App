@@ -10,6 +10,7 @@ import 'package:movies_app/core/utiles/variables.dart';
 import 'package:movies_app/features/data_layer/models/watchlist_model.dart';
 import 'package:movies_app/features/presentation_layer/cubits/home_tab_cubit/home_cubit.dart';
 import 'package:movies_app/features/presentation_layer/cubits/home_tab_cubit/home_state.dart';
+import 'package:movies_app/features/presentation_layer/pages/firebase_functions.dart';
 import 'package:movies_app/features/presentation_layer/pages/movie_details.dart';
 
 class NewReleasesMovies extends StatefulWidget {
@@ -83,8 +84,7 @@ class _NewReleasesMoviesState extends State<NewReleasesMovies> {
                     List<String> newReleasesModel = [
                       Variables.newReleasesPagination[index].id.toString(),
                       Variables.newReleasesPagination[index].backdropPath ?? "",
-                      Variables.newReleasesPagination[index].originalTitle ??
-                          "",
+                      Variables.newReleasesPagination[index].originalTitle ?? "",
                       Variables.newReleasesPagination[index].releaseDate ?? "",
                       Variables.newReleasesPagination[index].overview ?? "",
                     ];
@@ -153,7 +153,8 @@ class _NewReleasesMoviesState extends State<NewReleasesMovies> {
                                   children: [
                                     Icon(
                                       Icons.bookmark,
-                                      color: HomeCubit.get(context).isSaved(
+                                      color:
+                                      HomeCubit.get(context).isSaved(
                                         WatchlistModel(
                                           id: newReleasesModel[0],
                                           backdropPath: newReleasesModel[1],
